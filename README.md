@@ -1,5 +1,7 @@
 # Programming project group 20
 
+For portable Docker deployment and local setup, see [DOCKER.md](DOCKER.md).
+
 ## Before you start
 * Read the documentation on [Gitlab](https://gitlab.ti.howest.be/ti/2024-2025/s2/programming-project/documentation/splendor-documentation/)
 
