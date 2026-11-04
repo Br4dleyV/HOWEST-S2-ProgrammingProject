@@ -10,7 +10,7 @@ Run these commands from the repository root (the directory containing `client/`
 and `server/`), with Docker running:
 
 ```sh
-docker build -f server/Dockerfile -t splendor .
+docker build -t splendor ./server
 docker run --rm -p 8080:8080 splendor
 ```
 
@@ -60,10 +60,14 @@ as the language/runtime. Use these settings:
 
 | Render setting | Value |
 | --- | --- |
-| Root Directory | Leave empty |
-| Dockerfile Path | `./server/Dockerfile` |
-| Docker Build Context Directory | `.` (repository root) |
+| Root Directory | `server` |
+| Dockerfile Path | `./Dockerfile` |
+| Docker Build Context Directory | `.` (relative to Root Directory) |
 | Docker Command | Leave empty to use the image's default command |
+
+The build context must contain `gradlew`, `settings.gradle`, `generic-game-server/`,
+`vertx-web-bearer/`, and the inner `server/` module. Using the inner module as the
+context causes `chmod: cannot access 'gradlew'` during the build.
 
 Render supplies `PORT`; the application uses that value automatically. Use the
 service's assigned HTTPS URL in the Vercel client's configuration. No Blueprint file is needed.

@@ -1,7 +1,8 @@
 # Build the API with Java 21
 FROM eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /workspace/server
-COPY server/ ./
+# Use this directory (containing gradlew and settings.gradle) as the build context.
+COPY . ./
 # Make the wrapper executable on Linux and package the API with its dependencies
 RUN chmod +x gradlew && ./gradlew --no-daemon :server:shadowJar
 
