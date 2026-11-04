@@ -11,7 +11,7 @@ const SCORE_THRESHOLD_MIN = 10; // Minimum score to trigger the modal
 const SCORE_THRESHOLD_MAX = 14; // Maximum score to trigger the modal
 
 function getAPIUrl() {
-  return "https://howest-s2-programmingproject.onrender.com";
+  return "https://api.splendor.velleb.com";
 }
 
 export { getAPIUrl, GROUPTOKEN, MODAL_DISPLAY_TIME, SCORE_THRESHOLD_MIN, SCORE_THRESHOLD_MAX };
