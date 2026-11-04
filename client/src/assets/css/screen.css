@@ -1,0 +1,344 @@
+/*font imports*/
+@font-face {
+    font-family: "Bengrraas";
+    src: url("../fonts/Bengrraas.ttf")
+}
+
+/*Variables*/
+:root {
+    --custom-font: "Bengrraas", "Arial", sans-serif;
+    --primary-color: #ffd300;
+    --primary-hover-color: #d3b418;
+    --secondary-color: #432917;
+    --secondary-hover-color: #88542e;
+}
+
+/*Global styling*/
+body {
+    font-family: var(--custom-font);
+    background-image: url("../images/backgroundimage.png");
+    background-size: 100%;
+}
+
+/* Header Styles */
+header {
+    width: 100%;
+    height: 4rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #ffd300;
+    border-bottom: 0.15rem solid #432917;
+
+    nav {
+        width: inherit;
+        padding: 1rem;
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        position: relative;
+    }
+
+    nav ul li {
+        flex: 1;
+        text-align: center;
+
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+
+    nav ul li:first-child {
+        flex: 1;
+        text-align: left;
+    }
+
+    nav ul li:nth-child(2) {
+        flex: 10;
+    }
+
+    nav ul li:last-child {
+        flex: 1;
+        text-align: right;
+    }
+}
+
+/* General styles for #player-info */
+#player-info {
+    img {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        border: 0.15rem solid var(--secondary-color);
+    }
+}
+
+/* Specific styles for #player-info on the index page */
+#index-page #player-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.5rem;
+}
+
+button,
+.button {
+    font-family: var(--custom-font);
+    display: block;
+    border: 0.15rem solid var(--secondary-color);
+    border-radius: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+header nav ul li button {
+    width: auto;
+    /* Prevents full width */
+    padding: 0.5rem 1rem;
+    /* Adjust padding as needed */
+    white-space: nowrap;
+    /* Ensures text stays in one line */
+}
+    button:hover,
+    .button:hover {
+        background-color: var(--primary-hover-color);
+    }
+
+.button-color-secondary {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border-color: var(--primary-color);
+
+    &:hover {
+        background-color: var(--secondary-hover-color);
+    }
+}
+
+.button-green {
+    color: #FFFFFF;
+    background-color: #287a07;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #3d9a0b;
+    }
+}
+
+.button-red {
+    color: #FFFFFF;
+    background-color: #a71f1f;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #d32f2f;
+    }
+}
+
+.buttonsEndScreen {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.buttonsEndScreen button {
+    width: 15rem;
+    padding: 0.8rem;
+    font-size: 1.8rem;
+    font-family: var(--custom-font);
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 0.15rem solid var(--secondary-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.buttonsEndScreen button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/*Main menu*/
+#main-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25rem;
+    height: 100vh;
+    margin: 0 auto;
+
+    li {
+        margin: 0.5rem 0;
+    }
+}
+
+#rules-page .rules-header a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* General hover styles for links in the main menu */
+#main-menu li a:hover {
+    color: inherit;
+}
+
+#main-menu nav #main-menu nav li:nth-child(4) a {
+    color: var(--primary-color);
+}
+
+/* Header section */
+.popup-header {
+    display: flex;
+    justify-content: center;
+    /* Center the content */
+    align-items: center;
+    padding-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-color);
+    z-index: 1100;
+    width: 100%;
+}
+
+
+
+.rules {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40rem;
+    max-height: 40rem;
+    overflow-y: auto;
+    color: #000000;
+    background-color: var(--primary-color);
+    border: 0.15rem solid var(--secondary-color);
+    border-radius: 1.5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    z-index: 1000;
+    font-size: 1.8rem;
+    box-shadow: 0 0 1.25rem #000000; 
+    display: flex;
+    flex-direction: column;
+}
+  
+.rules-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--primary-color);
+  }
+  
+  .rules-header .left,
+  .rules-header .right {
+    width: 6.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .rules-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+.rules-content {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 0.5rem;
+}
+
+/* Scrollbar */
+.rules-content::-webkit-scrollbar {
+    width: 0.6rem;
+}
+
+.rules-content::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 0.3125rem;
+}
+
+.rules-content::-webkit-scrollbar-track {
+    background-color: var(--primary-color);
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+.aiGenerated {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+
+/* End  screen */
+#end-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    padding: 2rem;
+    gap: 5rem;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#battleStatus {
+    font-size: 6rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#scoreboard {
+    border: 0.2rem solid #000;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: 25rem;
+    text-align: left;
+}
+
+#scoreboard h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#scoreboard ol {
+    list-style: none;
+    padding: 0;
+    font-size: 2rem;
+}
+
+#scoreboard li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.score {
+    font-weight: bold;
+}

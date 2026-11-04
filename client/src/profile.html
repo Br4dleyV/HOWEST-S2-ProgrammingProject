@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/screen.css">
+    <link rel="stylesheet" href="assets/css/host-game.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" href="assets/css/popup-modal.css">
+    <script src="./assets/js/profile.js" type="module"></script>
+    <script src="./assets/js/index.js" type="module"></script>
+</head>
+
+<body id="profile-page">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="return-button button button-color-secondary">Back</a>
+                </li>
+                <li>
+                    <h1>Profile</h1>
+                </li>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="player-profile">
+            <a href="switch-profile.html" id="avatar-img"><img src="assets/images/profiles/profile_anonymous.jpg"
+                    alt="Avatar"></a>
+            <form id="profile-form">
+                <label for="user-name">Username</label>
+                <input type="text" id="user-name" name="user-name" required>
+                <input type="submit" value="Apply">
+            </form>
+        </div>
+        <template id="modal-template">
+            <div id="modal-overlay" style="display: none;">
+                <div id="modal-box">
+                    <div class="modal-header">
+                        <h2 id="modal-title"></h2>
+                    </div>
+                    <div id="modal-body"></div>
+                    <div id="modal-buttons"></div>
+                </div>
+            </div>
+        </template>
+    </main>
+</body>
+
+</html>

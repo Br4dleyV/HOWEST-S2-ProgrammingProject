@@ -1,0 +1,76 @@
+/* Player Profile Section */
+#player-profile {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#player-profile img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    border: 0.15rem solid #432917;
+    margin-bottom: 1.5rem;
+}
+
+#player-profile a {
+    background-color: transparent;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+#player-profile label {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #432917;
+    margin-bottom: 0.5rem;
+}
+
+#player-profile input[type="text"] {
+    font-size: 1.6rem;
+    padding: 0.5rem 1rem;
+    border: 0.15rem solid #432917;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 20rem;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+#player-profile input[type="submit"] {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #432917;
+    border: none;
+    border-radius: 1.25rem;
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#player-profile input[type="submit"]:hover {
+    background-color: #5a3a21;
+    transform: scale(1.05);
+}
+
+#player-profile input[type="submit"]:active {
+    background-color: #3a2515;
+    transform: scale(0.95);
+}
+
+#player-profile form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 25rem;
+}
+
+/* Same as host-game except left 50*/

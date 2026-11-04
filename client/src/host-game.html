@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/screen.css">
+    <link rel="stylesheet" href="./assets/css/host-game.css">
+    <script src="./assets/js/index.js" type="module"></script>
+    <script type="module" src="./assets/js/host-game.js"></script>
+</head>
+
+<body id="host-game-page">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="return-button button button-color-secondary">Home</a>
+                </li>
+                <li>
+                    <h1>Create Lobby</h1>
+                </li>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="player-info">
+            <img id="player-display" src="./assets/images/profiles/profile_anonymous.jpg" alt="Avatar">
+            <p id="player-name">Player Name</p>
+        </div>
+        <div id="host-game">
+            <form id="host-game-form">
+                <label for="game-name">Game Name</label>
+                <input type="text" id="game-name" name="game-name" placeholder="your game name" required>
+                <label for="num-of-players">Number of Players</label>
+                <div id="num-of-players-container">
+                    <button type="button" id="decrement">-</button>
+                    <input type="number" id="num-of-players" name="num-of-players" min="2" max="4" required value="2">
+                    <button type="button" id="increment">+</button>
+                </div>
+                <button type="submit" id="host-game-button">Host Game</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

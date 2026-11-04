@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/screen.css">
+    <link rel="stylesheet" href="./assets/css/lobby-screen.css">
+    <script src="./assets/js/index.js" type="module"></script>
+    <script src="./assets/js/navigator.js" type="module"></script>
+    <script src="./assets/js/lobby-screen.js" type="module"></script>
+</head>
+
+<body id="lobby-page">
+<header>
+    <nav>
+        <ul>
+            <li><a href="./index.html" class="return-button button button-color-secondary">Exit</a>
+            </li>
+            <li>
+                <h2>Game <span>##</span> <span id="player-count" data-count="1"></span></h2>
+            </li>
+            <li></li>
+        </ul>
+    </nav>
+</header>
+<main id="Lobby-screen">
+    <h1>Game Name</h1>
+    <div class="gridcontainer">
+
+    </div>
+    <button>Waiting for players</button>
+</main>
+<template id="lobby-screen-player-template">
+    <article>
+        <img src="./assets/images/profile-img-template.gif" title="Avatar-player" alt="Avatar player">
+        <h2 class="Nickname-player">You</h2>
+    </article>
+</template>
+</body>
+
+</html>

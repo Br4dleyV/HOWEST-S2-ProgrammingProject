@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/screen.css">
+    <link rel="stylesheet" href="./assets/css/join-game.css">
+    <link rel="stylesheet" href="./assets/css/popup-modal.css">
+    <script src="./assets/js/index.js" type="module"></script>
+    <script type="module" src="./assets/js/join-game.js"></script>
+</head>
+
+<body id="join-game-page">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="return-button button button-color-secondary">Home</a>
+                </li>
+                <li>
+                    <h1>Join Game</h1>
+                </li>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div id="player-info">
+            <img id="player-display" src="./assets/images/profiles/profile_anonymous.jpg" alt="Avatar">
+            <p id="player-name">Player Name</p>
+            <button type="button" id="refresh-games-btn">Refresh Games</button>
+        </div>
+        <div class="table-wrapper">
+            <table class="game-table">
+              <thead>
+                <tr>
+                  <th>Games</th>
+                  <th>Players</th>
+                  <th>Game Status</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="table-body-scroll">
+              <table class="game-table">
+                <tbody id="game-list">
+                  <!-- JS will insert rows here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        
+        <!-- Template outside -->
+        <template id="game-list-template">
+            <tr>
+                <td><button class="game-button">JOIN GAME</button></td>
+                <td><span class="player-box">4</span></td>
+                <td><button class="game-state">Started | Spectate</button></td>
+            </tr>
+        </template>
+    </div>
+    <template id="modal-template">
+      <div id="modal-overlay" style="display: none;">
+        <div id="modal-box">
+          <div class="modal-header">
+            <h2 id="modal-title"></h2>
+          </div>
+          <div id="modal-body"></div>
+          <div id="modal-buttons"></div>
+        </div>
+      </div>
+    </template>
+</body>
+
+</html>

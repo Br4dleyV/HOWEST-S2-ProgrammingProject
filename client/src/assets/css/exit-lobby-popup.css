@@ -1,0 +1,16 @@
+.hidden {
+    display: none;
+}
+
+#exit-lobby.active {
+    margin-top: 20rem;
+    align-items: center;
+    padding: 2rem;
+    background-color: #ffd300;
+    border: 0.15rem solid #432917;
+    border-radius: 1.5rem;
+}
+
+.popup-open {
+    overflow: hidden;
+}

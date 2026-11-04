@@ -1,0 +1,91 @@
+Name	Level	Type	Image	Points	Cost
+Diamond Mine	1	C	1	0	CCCSO
+Diamond Vein	1	C	1	0	SSOO
+Shimmering Quarry	1	C	1	0	SSS
+Brilliant Mine	1	C	1	0	RRO
+Radiant Crystal Cave	1	C	1	0	SSEEO
+Facet Workshop	1	C	1	0	SEERO
+Glistening Vault	1	C	1	0	SERO
+Sparkling Chamber	1	C	1	1	EEEE
+Polished Vault	2	C	2	1	EEERROO
+Diamond Refinery	2	C	2	1	CCSSSRRR
+Radiant Workshop	2	C	2	2	ERRRROO
+Gleaming Estate	2	C	3	2	RRRRR
+Sparkling Guild	2	C	3	2	RRRRROOO
+Brilliant Collection	2	C	3	3	CCCCCC
+Grand Diamond Vault	3	C	5	3	SSSEEERRRRROOO
+Exquisite Diamond Vault	3	C	4	4	OOOOOOO
+Royal Diamond Chamber	3	C	4	4	CCCRRROOOOOO
+Master Diamond Atelier	3	C	5	5	CCCOOOOOOO
+Emerald Mine	1	E	1	0	SSRR
+Emerald Vein	1	E	1	0	RRR
+Verdant Quarry	1	E	1	0	CSSSE
+Lush Gem Mine	1	E	1	0	CSROO
+Green Crystal Cave	1	E	1	0	CCS
+Forest Workshop	1	E	1	0	SRROO
+Emerald Vault	1	E	1	0	CSRO
+Verdant Chamber	1	E	1	1	OOOO
+Refined Gem Vault	2	E	3	1	CCCEERRR
+Emerald Refinery	2	E	3	1	CCSSSOO
+Lush Workshop	2	E	2	2	EEEEE
+Green Estate	2	E	2	2	SSSSSEEE
+Verdant Guild	2	E	3	2	CCCCSSO
+Emerald Collection	2	E	2	3	EEEEEE
+Grand Emerald Vault	3	E	4	3	CCCCCSSSRRROOO
+Exquisite Emerald Vault	3	E	5	4	SSSSSSS
+Royal Emerald Chamber	3	E	5	4	CCCSSSSSSEEE
+Master Emerald Atelier	3	E	4	5	SSSSSSSEEE
+Onyx Mine	1	O	1	0	CCSSR
+Onyx Vein	1	O	1	0	ERRRO
+Shadowed Quarry	1	O	1	0	EEE
+Noir Crystal Mine	1	O	1	0	CSSER
+Dark Gem Cave	1	O	1	0	CSER
+Obsidian Workshop	1	O	1	0	CCEE
+Midnight Vault	1	O	1	0	EER
+Gloomy Chamber	1	O	1	1	SSSS
+Obsidian Vault	2	O	2	1	CCCSSEE
+Onyx Refinery	2	O	2	1	CCCEEEOO
+Dark Refinery	2	O	2	2	SEEEERR
+Noir Estate	2	O	3	2	CCCCC
+Obsidian Guild	2	O	3	2	EEEEERRR
+Onyx Collection	2	O	3	3	OOOOOO
+Grand Onyx Vault	3	O	4	3	CCCSSSEEEEERRR
+Exquisite Onyx Vault	3	O	5	4	RRRRRRR
+Royal Onyx Chamber	3	O	5	4	EEERRRRRROOO
+Master Onyx Atelier	3	O	4	5	RRRRRRROOO
+Ruby Mine	1	R	1	0	CCEOO
+Ruby Vein	1	R	1	0	CROOO
+Crimson Quarry	1	R	1	0	SSE
+Scarlet Gem Mine	1	R	1	0	CCRR
+Red Crystal Cave	1	R	1	0	CCSEO
+Blazing Workshop	1	R	1	0	CSEO
+Inferno Vault	1	R	1	0	CCC
+Fiery Chamber	1	R	1	1	CCCC
+Radiant Vault	2	R	3	1	SSSRROOO
+Ruby Refinery	2	R	3	1	CCRROOO
+Blazing Refinery	2	R	3	2	CSSSSEE
+Crimson Estate	2	R	2	2	CCCOOOOO
+Ruby Guild	2	R	2	2	OOOOO
+Ruby Collection	2	R	2	3	RRRRRR
+Grand Ruby Vault	3	R	5	3	CCCSSSSSEEEOOO
+Exquisite Ruby Vault	3	R	4	4	SSSEEEEEERRR
+Royal Ruby Chamber	3	R	5	4	EEEEEEE
+Master Ruby Atelier	3	R	4	5	EEEEEEERRR
+Sapphire Mine	1	S	1	0	COO
+Sapphire Vein	1	S	1	0	CERRO
+Azure Quarry	1	S	1	0	CERO
+Blue Gem Mine	1	S	1	0	CEERR
+Blue Crystal Cave	1	S	1	0	SEEER
+Azure Workshop	1	S	1	0	EEOO
+Luminous Vault	1	S	1	0	OOO
+Celestial Chamber	1	S	1	1	RRRR
+Sapphire Vault	2	S	3	1	SSEEEOOO
+Sapphire Refinery	2	S	3	1	SSEERRR
+Azure Refinery	2	S	3	2	CCCCCSSS
+Blue Estate	2	S	2	2	CCROOOO
+Sapphire Guild	2	S	2	2	SSSSS
+Sapphire Collection	2	S	2	3	SSSSSS
+Grand Sapphire Vault	3	S	5	3	CCCEEERRROOOOO
+Exquisite Sapphire Vault	3	S	4	4	CCCCCCSSSOOO
+Royal Sapphire Chamber	3	S	5	4	CCCCCCC
+Master Sapphire Atelier	3	S	4	5	CCCCCCCSSS

@@ -1,0 +1,575 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 1.25rem;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 0.5fr 0.5fr;
+}
+
+.player {
+  border: 0.125rem solid #000;
+  border-radius: 50%;
+  text-align: center;
+  padding: 0.3rem;
+  width: 6.25rem;
+  height: 6.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#players-panel {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  .player {
+    display: flex;
+    flex-direction: column;
+
+    width: 9.5rem;
+    height: 9.5rem;
+
+    button {
+      position: absolute;
+      bottom: 0;
+    }
+
+    img {
+      /* Float behind other content in div */
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .player-name {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .player-score {
+      position: absolute;
+      top: -0.6rem;
+      right: -0.6rem;
+      border: 0.0625rem solid #000;
+      background: #fff;
+      border-radius: 50%;
+      width: 2.1rem;
+      height: 2.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+#game-status {
+  display: flex;
+  font-size: 2rem;
+  margin-top: 0.75rem;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.inventory div:nth-child(1) div {
+  /* Built Cards */
+  width: 2.5rem;
+  height: 3.6rem;
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  border-radius: 0.3rem;
+}
+
+#gems-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+  }
+}
+
+.inventory {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  #inventory-built {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .token-count {
+    border: 0.10rem solid black;
+    color: white;
+    text-shadow: 0 1px 2px black;
+  }
+
+  .token-count-total {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  #inventory-tokens {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: right;
+    align-items: center;
+
+    div {
+      width: 3.6rem;
+      height: 3.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+  }
+}
+
+.gem {
+  border: 0.10rem solid black;
+  color: white;
+  text-shadow: 0 1px 2px black;
+}
+
+#developments-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+
+  .level {
+    h3 {
+      writing-mode: vertical-lr;
+      border: 0.0625rem solid #000;
+      transform: rotate(180deg);
+      text-align: center;
+      font-weight: bold;
+      padding: 0.3rem;
+    }
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    height: 16rem;
+
+    &:nth-child(1) h3 {
+      background: #1E90FF;
+    }
+
+    &:nth-child(2) h3 {
+      background: yellow;
+    }
+
+    &:nth-child(3) h3 {
+      background: #228B22;
+    }
+  }
+
+  div:nth-child(1) {
+    flex-grow: 2;
+  }
+
+  div:nth-child(2) {
+    flex-grow: 4;
+  }
+}
+
+.card header {
+  height: 30%;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0.625rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card section {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.card ul {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 2;
+}
+
+.card li {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  border: 0.10rem solid black;
+  text-shadow: 0 1px 2px black;
+}
+
+
+
+
+#right-panel {
+  display: grid;
+
+  #nobles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .noble {
+    width: 7rem;
+    flex: 1 1 7rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    border: 0.125rem solid #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    position: relative;
+  }
+
+  .noble header {
+    background: #fff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  .noble-image-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .noble img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 1rem;
+    z-index: 1;
+  }
+
+  .noble ul {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+
+  .noble li {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 1px 2px black;
+    border: 0.10rem solid black;
+  }
+
+  /* RESERVED CARDS  */ 
+  .reserved-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding-top: 1rem;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Compact reserved card (small) */
+  .reserved-card {
+    width: 2.5rem;
+    height: 4rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #000;
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .reserved-card:first-of-type {
+    margin-left: 0.5rem;
+  }
+  .reserved-card:last-of-type {
+    margin-right: 0.5rem;
+  }
+
+
+  .reserved-card .details-popup {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-90%, -90%);
+    width: 7rem;
+    height: 10rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    font-size: 0.9rem;
+    color: black;
+  }
+
+  .reserved-card:hover .details-popup {
+    display: block;
+    transform: translate(-90%, -90%) scale(1)
+  }
+
+  .cost-list {
+    position: absolute;
+    bottom: 0.4rem;
+    left: 0.4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 0.3rem;
+    list-style: none;
+    padding-bottom: 0.5rem;
+    margin: 0;
+    z-index: 2;
+  }
+
+  .cost-list li {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: white;
+    border: 0.1rem solid black;
+    text-align: center;
+  }
+}
+
+.splendor-logo {
+  max-width: 10%;
+  height: auto;
+  padding-bottom: 1.5rem;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  border: 0.15rem solid #432917;
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.modal-content {
+  text-align: center;
+  font: bold 3rem "Bengrraas", "Arial", sans-serif;
+  color: #432917;
+  background-color: #ffd300;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 1.25rem;
+  border: 0.0625rem solid #888;
+  width: 50%;
+  /* Could be more or less, depending on screen size */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 2rem;
+  border: 0.125rem solid #000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Gem colors */
+.diamond {
+  background: #b9f2ff;
+}
+
+.sapphire {
+  background: #0f52ba;
+}
+
+.emerald {
+  background: #50c878;
+}
+
+.ruby {
+  background: #e0115f;
+}
+
+.onyx {
+  background: #353839;
+}
+
+.gold {
+  background: #ffd700;
+}
+
+
+.tomatoes {
+  background: #e0115f;
+  color: white;
+}
+
+.lettuce {
+  background: #50c878;
+  color: white;
+}
+
+.cheese {
+  background: #0f52ba;
+  color: white;
+}
+
+.nuts {
+  background: #353839;
+  color: white;
+}
+
+.mayonnaise {
+  background: #b9f2ff;
+  color: black;
+}
+
+.bread {
+  background: #ffd700;
+  color: black;
+}
+
+.turn-indicator {
+  position: relative;
+  animation: bounce-scale 0.6s ease-in-out infinite alternate;
+  box-shadow: 0 0 0.5rem 0.2rem rgba(255, 215, 0, 0.9);
+  border: 0.2rem solid #ffd300;
+  z-index: 10;
+}
+
+@keyframes bounce-scale {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0.5rem 0.2rem rgba(255, 215, 0, 0.9);
+  }
+
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 1rem 0.5rem rgba(255, 215, 0, 0.6);
+  }
+}
+
+.modal-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+}
+
+.unstyled-list {
+  list-style: none;
+  padding: 0;
+}

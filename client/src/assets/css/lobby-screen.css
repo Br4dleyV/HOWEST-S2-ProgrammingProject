@@ -1,0 +1,61 @@
+button {
+    margin: 0 auto;
+    width: 15vw;
+}
+
+/*Lobby screen*/
+#Start-game{
+    margin: 0 auto;
+    width: 40%;
+}
+
+#Lobby-screen .gridcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+#Lobby-screen article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#Lobby-screen h1 {
+    color: #432917;
+    font-size: 6rem;
+    text-align: center;
+    margin: 2rem;
+}
+
+#Lobby-screen article img {
+    margin: auto;
+    height: 15rem;
+    width: 15rem;
+    border: 0.2rem solid #432917;
+    border-radius: 60%;
+}
+
+#Lobby-screen article h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+#Lobby-screen article button {
+    width: 16rem;
+}
+
+#Lobby-screen #Start-game {
+    width: 10rem;
+    font-weight: bold;
+    margin: 3rem auto;
+    padding: 0.5rem;
+
+    &:hover {
+        background-color: #d3b418;
+    }
+}

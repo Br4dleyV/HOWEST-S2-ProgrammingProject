@@ -1,0 +1,85 @@
+/* General Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Host Game Section */
+#host-game {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#host-game form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#host-game form label,
+#host-game form input {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+#host-game form label {
+    font-weight: bold;
+}
+
+#host-game form input {
+    padding: 0.5rem;
+    border: 0.15rem solid #432917;
+    border-radius: 0.5rem;
+}
+
+#host-game form button {
+    margin: 1rem;
+}
+
+#host-game form button:hover {
+    background-color: #432917;
+    color: #ffd300;
+}
+
+/* Player Info Section */
+#player-info {
+    position: fixed;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#player-info img {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    border: 0.15rem solid #432917;
+}
+
+#player-info p {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Number of Players Container */
+#num-of-players-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    /* Add spacing between items */
+}

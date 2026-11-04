@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/screen.css">
+    <link rel="stylesheet" href="./assets/css/host-game.css">
+    <link rel="stylesheet" href="./assets/css/exit-lobby-popup.css">
+    <script type="module" src="./assets/js/host-game.js"></script>
+    <script type="module" src="./assets/js/exit-lobby-popup.js"></script>
+    <script src="./assets/js/index.js" type="module"></script>
+</head>
+<body id="exit-lobby-page">
+    <main>
+        <div class="exit-lobby-popup hidden" id="exit-lobby">
+            <div class="popup-header" id="exit-lobby-header">
+                <h2>Are you sure that you want to exit the lobby?</h2>
+            </div>
+            <a href="index.html">YES</a>
+            <a href="lobby-screen.html" id="close-screen">NO</a>
+        </div>
+    </main>
+</body>
+</html>

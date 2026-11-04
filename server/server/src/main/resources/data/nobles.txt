@@ -1,0 +1,11 @@
+Name	Cost	Points
+Mary Stuart	EEEERRRR	3
+Suleiman the Magnificent	SSSSEEEE	3
+Niccolo Machiavelli	CCCCSSSS	3
+Isabella of Castile	CCCCOOOO	3
+Henry VIII	RRRROOOO	3
+Elizabeth of Austria	CCCSSSOOO	3
+Francois the 1st	EEERRROOO	3
+Charles the Fifth	CCCRRROOO	3
+Catherine de Medici	SSSEEERRR	3
+Anne of Brittany	CCCSSSEEE	3

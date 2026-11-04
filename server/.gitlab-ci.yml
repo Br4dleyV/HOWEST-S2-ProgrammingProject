@@ -1,0 +1,56 @@
+image: registry.ci.infra.lan:5000/project-1:server-build_QA
+
+stages:
+  - QA
+  - build
+  - deploy
+
+before_script:
+  - export GROUP_NUMBER=${CI_PROJECT_NAMESPACE##*-}
+  - echo -e "server.port=$((8000 + 10#$GROUP_NUMBER))\nspec.url=https://project-1.ti.howest.be/2024-2025/splendor-api-spec/splendor-api-spec.yaml" > server/src/main/resources/config.properties
+  - ln -s /home/gradle/.gradle .gradle
+
+testing:
+  stage: QA
+  rules:
+    - if:
+        $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - gradle clean test --info
+    - gradle sonar
+  artifacts:
+    when: always
+    reports:
+      junit: server/build/test-results/test/**/TEST-*.xml
+
+build:
+  stage: build
+  needs:
+    - testing
+  rules:
+    - if:
+        $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    # Log config: log to file
+    - echo -e "handlers=java.util.logging.FileHandler\n.level=INFO\njava.util.logging.FileHandler.pattern=/var/www/html/logs/SplendorServer-logs-group-$GROUP_NUMBER.txt\njava.util.logging.FileHandler.count=1\njava.util.logging.FileHandler.formatter=java.util.logging.SimpleFormatter" > server/src/main/resources/vertx-default-jul-logging.properties
+    - gradle shadowJar
+  artifacts:
+    untracked: false
+    paths:
+      - server/build/libs/
+
+deployment:
+  stage: deploy
+  image: registry.ci.infra.lan:5000/project-1:server-deploy
+  needs:
+    - testing
+    - build
+  variables:
+    year: 2024-2025
+  rules:
+    - if:
+        $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - mv server/build/libs/*.jar ${CI_PROJECT_NAMESPACE##*/}.jar
+    - rsync -e "ssh" ${CI_PROJECT_NAMESPACE##*/}.jar gitlab-runner@project-1.edu.technet.howest.be:/opt/${year}/${CI_PROJECT_NAMESPACE##*/}/server
+    - ssh gitlab-runner@project-1.edu.technet.howest.be sudo systemctl restart project1-server-${CI_PROJECT_NAMESPACE##*/}

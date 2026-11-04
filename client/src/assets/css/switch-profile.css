@@ -1,0 +1,23 @@
+#player-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+}
+
+#player-profile li {
+    flex: 0 1;
+}
+
+#player-profile a {
+    background-color: transparent;
+    border: none;
+}
+
+#player-profile img {
+    border-radius: 2rem;
+    width: 15rem;
+    height: 17rem;
+}

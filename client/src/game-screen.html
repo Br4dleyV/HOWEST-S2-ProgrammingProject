@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Splendor</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="./assets/css/screen.css">
+  <link rel="stylesheet" href="./assets/css/host-game.css">
+  <link rel="stylesheet" href="./assets/css/game-screen.css">
+  <link rel="stylesheet" href="./assets/css/popup-modal.css">
+  <script type="module" src="./assets/js/host-game.js"></script>
+  <script type="module" src="./assets/js/game-screen.js"></script>
+  <script src="./assets/js/index.js" type="module"></script>
+</head>
+
+<body id="game-screen-page">
+  <img class="splendor-logo" src="./assets/images/splendorlogo.png" alt="Splendor logo" title="Splendor logo">
+
+  <div class="game-container">
+    <div id="players-panel">
+      <!-- Using template player-template here -->
+    </div>
+
+    <!-- The Modal -->
+    <template id="modal-template">
+      <div id="modal-overlay" style="display: none;">
+        <div id="modal-box">
+          <div class="modal-header">
+            <h2 id="modal-title"></h2>
+          </div>
+          <div id="modal-body"></div>
+          <div id="modal-buttons"></div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Game Board -->
+    <div>
+      <div id="developments-panel" class="board">
+        <!-- Using template level-template here -->
+      </div>
+
+      <div id="game-status"></div>
+      <div class="inventory">
+        <!-- inventory-gems -->
+
+        <div id="inventory-built">
+          <!-- Using template build-template here -->
+        </div>
+
+        <div class="token-count-total">Total Tokens <br><span> /10</span></div>
+        <!-- current-tokens -->
+
+        <div id="inventory-tokens">
+          <div class="token-count lettuce">1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel voor gems -->
+    <div id="gems-panel">
+    </div>
+
+    <!-- Right Panel voor nobles en reserved cards -->
+    <div id="right-panel" class="right-panel" style="background-color: lightsalmon;">
+      <div id="nobles" style="background-color: lightpink;">
+        <!-- Using template noble-template here -->
+
+      </div>
+      <div class="reserved-cards" style="background-color: lightblue;">
+        <!-- Reserved cards will be injected here -->
+      </div>
+
+      <!-- Place this outside and below reserved-cards -->
+      <template id="reserved-card-template">
+        <div class="reserved-card">
+          <div class="details-popup card">
+            <header>0 - EMERALD</header>
+            <section>
+              <img src="" alt="Card Image">
+              <ul class="cost-list"></ul>
+            </section>
+          </div>
+        </div>
+      </template>
+
+    </div>
+  </div>
+
+  <!-- Templates are outside for easier css and for clearing containers-->
+  <template id="level-template">
+    <div class="level">
+      <h3>LEVEL 3</h3>
+      <template id="card-template">
+        <div class="card">
+          <header>1</header>
+          <section>
+            <img src="" alt="Card Image">
+            <ul></ul>
+          </section>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <template id="noble-template">
+    <div class="noble">
+      <header>Noble</header>
+      <div class="noble-image-wrapper">
+        <img src="" alt="Noble Image">
+        <ul></ul>
+      </div>
+    </div>
+  </template>
+
+  <template id="built-template">
+    <div class="card">
+      <header>1</header>
+      <section>
+
+      </section>
+    </div>
+  </template>
+
+  <template id="player-template">
+    <div class="player">
+      <img src="./assets/images/profiles/avatar1.png" alt="Player Avatar">
+      <div class="player-name">Player 1</div>
+      <div class="player-score">0</div>
+      <button id="show-player-info-button" type="button">+</button>
+    </div>
+  </template>
+
+  <!-- The Modal -->
+  <template id="modal-template-choose-form">
+    <form id="choose-form">
+      <div class="modal-columns">
+
+        <div id="left-column">
+          <h3>Cost of Card</h3>
+          <ul class="unstyled-list">
+            <!-- Fill dynamically -->
+          </ul>
+        </div>
+
+        <div id="right-column">
+          <h3>You have <span class="gold-count">0</span> Gold</h3>
+          <ul class="unstyled-list">
+          </ul>
+        </div>
+
+      </div>
+    </form>
+  </template>
+
+</body>
+
+
+</html>

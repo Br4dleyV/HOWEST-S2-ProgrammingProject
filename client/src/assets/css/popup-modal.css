@@ -1,0 +1,54 @@
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#modal-box {
+    background-color: var(--primary-color);
+    border: 0.2rem solid var(--secondary-color);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 0 1.5rem #000000;
+}
+
+#modal-box h2 {
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+#modal-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+#modal-buttons button {
+    font-family: var(--custom-font);
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    border: 0.15rem solid var(--secondary-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+#modal-buttons button:hover {
+    background-color: var(--primary-hover-color);
+}

@@ -1,0 +1,977 @@
+openapi: '3.0.0'
+info:
+  title: Splendor
+  description: This is the openAPI specification for the splendor game
+  version: '0.0.1'
+  contact:
+    name: Dieter Mourisse
+    email: dieter.mourisse@howest.be
+servers:
+  - url: https://project-1.ti.howest.be/2024-2025/splendor/api
+    description: Deployed API
+  - url: http://localhost:8080
+    description: Local API
+
+paths:
+  /info:
+    parameters:
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    get:
+      operationId: get-info
+      summary: Get API information
+      tags:
+        - General
+      responses:
+        200:
+          description: OK
+  /gems:
+    parameters:
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    get:
+      operationId: get-gems
+      summary: Get a list of gems
+      tags:
+        - General
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gems:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/gem'
+                required: [gems]
+  /nobles:
+    parameters:
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    get:
+      operationId: get-nobles
+      summary: Get a list of nobles
+      tags:
+        - General
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nobles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/noble'
+                required: [nobles]
+  /developments:
+    parameters:
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    get:
+      operationId: get-developments
+      summary: Get a list of developments
+      tags:
+        - General
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  developments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/developmentComplete'
+                required: [developments]
+  /games:
+    parameters:
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    get:
+      operationId: get-games
+      summary: Get a list of games running on the server
+      tags:
+        - Game Management
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: started
+          description: Has the game started
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [games]
+                properties:
+                  games:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/gameInListDescription'
+                example:
+                  games:
+                    - players:
+                        - "Alice"
+                        - "Bob"
+                      started: false
+                      gameId: 0
+                      gameName: null
+                      numberOfPlayers: 3
+                      returnExcessTokensRequired: true
+                      pickNobleRequired: false
+                    - players:
+                        - "Alice"
+                        - "Bob"
+                      started: true
+                      gameId: 1
+                      gameName: "The Splendid Splendors"
+                      numberOfPlayers: 2
+                      returnExcessTokensRequired: false
+                      pickNobleRequired: false
+    post:
+      operationId: create-game
+      summary: Create a new game
+      tags:
+        - Game Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createGameBody'
+            examples:
+                verySimpleTwoPlayerGame:
+                  value:
+                    numberOfPlayers: 2
+                    playerName: "Alice"
+                gameWithAName:
+                    value:
+                     gameName: "The Splendid Splendors"
+                     numberOfPlayers: 2
+                     playerName: "Alice"
+                gameWithAllOptionsAndIgnoredId:
+                  value:
+                    gameId: 1122334455
+                    gameName: "The Splendid Splendors"
+                    numberOfPlayers: 2
+                    playerName: "Alice"
+                    returnExcessTokensRequired: false
+                    pickNobleRequired: true
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gameJoinInfo'
+              example:
+                gameId: 123
+                playerName: "Alice"
+                playerToken: "de00a784"
+        409:
+          description: You tried to do something which is against the rules.
+    delete:
+      operationId: delete-games
+      summary: Delete all games. This endpoint is only available for admins.
+      tags:
+        - Game Management
+      responses:
+        204:
+          description: OK
+        401:
+          description: This is a protected endpoint. Make sure you passed your admin security-token along with the request.
+        403:
+          description: This is a protected endpoint. Make sure the security-token you passed along is a valid admin token.
+      security:
+        - playerToken: [ ]
+  /games/{gameId}:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    get:
+      operationId: get-game-details
+      summary: |
+        Get the details of a single game.
+        This is either the game state with all information, when the game has already started.
+        Or the game description as it can be seen in the game lists (GET /games), when the game has not started yet.
+      tags:
+        - Game Management
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/game'
+                  - $ref: '#/components/schemas/gameInListDescription'
+              examples:
+                unstartedGame:
+                  value:
+                    players:
+                      - "Alice"
+                    started: false
+                    gameId: 0
+                    gameName: null
+                    numberOfPlayers: 3
+                    returnExcessTokensRequired: false
+                    pickNobleRequired: false
+                startedGame:
+                  value:
+                    gameId: 2
+                    gameName: null
+                    numberOfPlayers: 2
+                    started: true
+                    returnExcessTokensRequired: false
+                    pickNobleRequired: false
+                    players:
+                      - name: "Alice"
+                        tokens:
+                          Diamond: 2
+                        reserve: [ ]
+                        built:
+                          - name: "Obsidian Workshop"
+                            level: 1
+                            cost:
+                              Emerald: 2
+                              Diamond: 2
+                            bonus: "Onyx"
+                            prestigePoints: 0
+                        nobles: [ ]
+                        totalPrestigePoints: 0
+                        bonuses:
+                          Onyx: 1
+                          Ruby: 2
+                      - name: "Bob"
+                        tokens:
+                          Ruby: 2
+                        reserve: [ ]
+                        built:
+                          - name: "Shimmering Quarry"
+                            level: 1
+                            cost:
+                              Sapphire: 3
+                            bonus: "Diamond"
+                            prestigePoints: 0
+                        nobles: [ ]
+                        totalPrestigePoints: 0
+                        bonuses:
+                          Diamond: 1
+                    market:
+                      - level: 1
+                        cardStackSize: 34
+                        visibleCards:
+                          - name: "Fiery Chamber"
+                            level: 1
+                            cost:
+                              Diamond: 4
+                            bonus: "Ruby"
+                            prestigePoints: 1
+                          - name: "Celestial Chamber"
+                            level: 1
+                            cost:
+                              Ruby: 4
+                            bonus: "Sapphire"
+                            prestigePoints: 1
+                          - name: "Gloomy Chamber"
+                            level: 1
+                            cost:
+                              Sapphire: 4
+                            bonus: "Onyx"
+                            prestigePoints: 1
+                          - name: "Dark Gem Cave"
+                            level: 1
+                            cost:
+                              Emerald: 1
+                              Ruby: 1
+                              Diamond: 1
+                              Sapphire: 1
+                            bonus: "Onyx"
+                            prestigePoints: 0
+                      - level: 2
+                        cardStackSize: 26
+                        visibleCards:
+                          - name: "Azure Refinery"
+                            level: 2
+                            cost:
+                              Diamond: 5
+                              Sapphire: 3
+                            bonus: "Sapphire"
+                            prestigePoints: 2
+                          - name: "Obsidian Vault"
+                            level: 2
+                            cost:
+                              Emerald: 2
+                              Diamond: 3
+                              Sapphire: 2
+                            bonus: "Onyx"
+                            prestigePoints: 1
+                          - name: "Polished Vault"
+                            level: 2
+                            cost:
+                              Emerald: 3
+                              Ruby: 2
+                              Onyx: 2
+                            bonus: "Diamond"
+                            prestigePoints: 1
+                          - name: "Ruby Guild"
+                            level: 2
+                            cost:
+                              Onyx: 5
+                            bonus: "Ruby"
+                            prestigePoints: 2
+                      - level: 3
+                        cardStackSize: 16
+                        visibleCards:
+                          - name: "Royal Sapphire Chamber"
+                            level: 3
+                            cost:
+                              Diamond: 7
+                            bonus: "Sapphire"
+                            prestigePoints: 4
+                          - name: "Master Onyx Atelier"
+                            level: 3
+                            cost:
+                              Ruby: 7
+                              Onyx: 3
+                            bonus: "Onyx"
+                            prestigePoints: 5
+                          - name: "Master Emerald Atelier"
+                            level: 3
+                            cost:
+                              Emerald: 3
+                              Sapphire: 7
+                            bonus: "Emerald"
+                            prestigePoints: 5
+                          - name: "Exquisite Diamond Vault"
+                            level: 3
+                            cost:
+                              Onyx: 7
+                            bonus: "Diamond"
+                            prestigePoints: 4
+                    unclaimedTokens:
+                      Emerald: 4
+                      Ruby: 2
+                      Gold: 5
+                      Diamond: 2
+                      Sapphire: 4
+                      Onyx: 4
+                    unclaimedNobles:
+                      - name: "Elizabeth of Austria"
+                        neededBonuses:
+                          Diamond: 3
+                          Sapphire: 3
+                          Onyx: 3
+                        prestigePoints: 3
+                      - name: "Suleiman the Magnificent"
+                        neededBonuses:
+                          Emerald: 4
+                          Sapphire: 4
+                        prestigePoints: 3
+                      - name: "Isabella of Castile"
+                        neededBonuses:
+                          Diamond: 4
+                          Onyx: 4
+                        prestigePoints: 3
+                    gameState: "TurnAction"
+                    currentPlayer: "Alice"
+                    winner: null
+        404:
+          description: The game you are looking for does not exist. Double check the id.
+      security:
+        - playerToken: []
+  /games/{gameId}/players/{playerName}:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: playerName
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    post:
+      operationId: join-game
+      summary: Join an existing game
+      tags:
+        - Game Management
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gameJoinInfo'
+              example:
+                gameId: 123
+                playerName: "Bob"
+                playerToken: "ef00b895"
+        404:
+          description: The game you are looking for does not exist. Double check the id.
+  /games/{gameId}/players/{playerName}/tokens:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: playerName
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    patch:
+      operationId: update-tokens
+      summary:
+        Update the tokens owned by a player.
+      description:
+        In the beginning of its turn, a player can choose to take tokens.
+        In this case, use the body with the `take`-property.
+        At the end of its turn, a player may have to return some tokens.
+        In this case, use the body with the `return`-property.
+      tags:
+        - Game Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  properties:
+                    take:
+                      $ref: '#/components/schemas/purse'
+                  required:
+                    - take
+                - type: object
+                  properties:
+                    return:
+                      $ref: '#/components/schemas/purse'
+                  required:
+                    - return
+            examples:
+              takeThree:
+                value:
+                  take:
+                    Ruby: 1
+                    Diamond: 1
+                    Sapphire: 1
+              takeOne:
+                value:
+                  take:
+                    Ruby: 2
+              return:
+                value:
+                  return:
+                    Ruby: 2
+                    Diamond: 1
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tokens:
+                    $ref: '#/components/schemas/purse'
+              example:
+                tokens:
+                  Ruby: 2
+                  Diamond: 1
+                  Emerald: 3
+        401:
+          description: This is a protected endpoint. Make sure you passed your security-token along with the request.
+        403:
+          description: This is a protected endpoint. Make sure the security-token you passed along is a valid token for this game.
+        404:
+          description: The player you are looking for does not exist within the given game. Double check the gameName and playerName
+        409:
+          description: You tried to do something which is against the rules of splendor.
+      security:
+        - playerToken: []
+  /games/{gameId}/players/{playerName}/developments:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: playerName
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    post:
+      operationId: buy-development
+      summary: In the beginning of its turn, a player can choose to buy a development from the market
+      tags:
+        - Game Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [development, payment]
+              properties:
+                development:
+                  $ref: '#/components/schemas/developmentByName' # name is sufficient (required)
+                payment:
+                  $ref: '#/components/schemas/purse'
+            example:
+              development:
+                name: "Obsidian Workshop"
+              payment:
+                Emerald: 2
+                Diamond: 1
+                Gold: 1
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  developments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/developmentComplete'
+                required: [ developments ]
+              example:
+                developments:
+                  - name: "Obsidian Workshop"
+                    level: 1
+                    cost:
+                      Emerald: 2
+                      Diamond: 2
+                    bonus: "Onyx"
+                    prestigePoints: 2
+                  - name: "Older Development"
+                    level: 1
+                    cost:
+                      Emerald: 1
+                    bonus: "Diamond"
+                    prestigePoints: 0
+                tokens: {}
+        401:
+          description: This is a protected endpoint. Make sure you passed your security-token along with the request.
+        403:
+          description: This is a protected endpoint. Make sure the security-token you passed along is a valid token for this player.
+        404:
+          description: The player you are looking for does not exist within the given game. Double check the gameName and playerName
+        409:
+          description: You tried to do something which is against the rules of splendor.
+      security:
+        - playerToken: []
+  /games/{gameId}/players/{playerName}/reserve:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: playerName
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    post:
+      operationId: reserve-development
+      summary: Reserve a development
+      tags:
+        - Game Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                development:
+                  oneOf:
+                    - $ref: '#/components/schemas/developmentByName'
+                    - $ref: '#/components/schemas/developmentByLevel'
+              required: [development]
+            examples:
+                reserveByName:
+                    value:
+                      development:
+                        name: "Royal Sapphire Chamber"
+
+                reserveByLevel:
+                    value:
+                      development:
+                        level: 3
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reserve:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/developmentComplete'
+                  tokens:
+                      $ref: '#/components/schemas/purse'
+              example:
+                reserve:
+                  - name: "Royal Sapphire Chamber"
+                    level: 3
+                    cost:
+                      Diamond: 7
+                    bonus: "Sapphire"
+                    prestigePoints: 4
+                tokens:
+                    Ruby: 2
+                    Gold: 1
+        401:
+          description: This is a protected endpoint. Make sure you passed your security-token along with the request.
+        403:
+          description: This is a protected endpoint. Make sure the security-token you passed along is a valid token for this player.
+        404:
+          description: The player you are looking for does not exist within the given game. Double check the gameName and playerName
+        409:
+          description: You tried to do something which is against the rules of splendor.
+      security:
+        - playerToken: []
+  /games/{gameId}/players/{playerName}/reserve/{developmentName}:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: playerName
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: developmentName
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    delete:
+      operationId: buy-reserved-development
+      summary: Buy a development that was reserved
+      tags:
+        - Game Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [payment]
+              properties:
+                payment:
+                  $ref: '#/components/schemas/purse'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tokens:
+                    $ref: '#/components/schemas/purse'
+                  developments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/developmentComplete'
+                required: [ tokens, developments ]
+
+
+        401:
+          description: This is a protected endpoint. Make sure you passed your security-token along with the request.
+        403:
+          description: This is a protected endpoint. Make sure the security-token you passed along is a valid token for this player.
+        404:
+          description: The player you are looking for does not exist within the given game. Double check the gameName and playerName
+        409:
+          description: You tried to do something which is against the rules of splendor.
+      security:
+        - playerToken: []
+  /games/{gameId}/players/{playerName}/nobles:
+    parameters:
+      - schema:
+          type: integer
+        name: gameId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: playerName
+        in: path
+        required: true
+      - $ref: '#/components/parameters/GroupSecretHeader'
+    post:
+      operationId: choose-noble
+      summary: Pick a noble
+      tags:
+        - Game Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/noble'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noble'
+        401:
+          description: This is a protected endpoint. Make sure you passed your security-token along with the request.
+        403:
+          description: This is a protected endpoint. Make sure the security-token you passed along is a valid token for this game.
+        404:
+          description: The player you are looking for does not exist within the given game. Double check the gameName and playerName
+        409:
+          description: You tried to do something which is against the rules of splendor.
+      security:
+        - playerToken: []
+components:
+  parameters:
+    GroupSecretHeader:
+      name: X-Group-Secret
+      in: header
+      description: This header contains your group secret
+      required: true
+      example: "Group0-2021-371"
+      schema:
+        type: string
+  securitySchemes:
+    playerToken:
+      type: http
+      scheme: bearer
+  schemas:
+    gem:
+      description: Represents a gem type
+      type: string
+      enum:
+        - Emerald
+        - Sapphire
+        - Ruby
+        - Diamond
+        - Onyx
+        - Gold
+    purse:
+      description: Represents a mapping of gems to an amount
+      type: object
+      properties: {
+        "Emerald": {type: integer, minimum: 0},
+        "Sapphire": {type: integer, minimum: 0},
+        "Ruby": {type: integer, minimum: 0},
+        "Diamond": {type: integer, minimum: 0},
+        "Onyx": {type: integer, minimum: 0},
+        "Gold": {type: integer, minimum: 0}
+      }
+    noble:
+      description: Represents a noble
+      type: object
+      properties:
+        name:
+          type: string
+        prestigePoints:
+          type: integer
+          minimum: 0
+        neededBonuses:
+          $ref: '#/components/schemas/purse'
+      required: [name]
+    developmentByName:
+      description: "Represents a development card by name"
+      type: object
+      properties:
+        name:
+          type: string
+      required: [name]
+    developmentByLevel:
+      description: "Represents a development card by level"
+      type: object
+      properties:
+        level:
+          type: integer
+          minimum: 1
+          maximum: 3
+      required: [ level ]
+    developmentComplete:
+      description: "Represents a development card"
+      allOf:
+        - $ref: '#/components/schemas/developmentByName'
+        - $ref: '#/components/schemas/developmentByLevel'
+        - type: object
+          properties:
+            prestigePoints:
+              type: integer
+              minimum: 0
+            bonus:
+              $ref: '#/components/schemas/gem'
+            neededTokens:
+              $ref: '#/components/schemas/purse'
+
+    player:
+      description: "Represents a player of the game"
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        tokens:
+          $ref: '#/components/schemas/purse'
+        acquiredNobles:
+          type: array
+          items:
+            $ref: '#/components/schemas/noble'
+        totalPrestigePoints:
+          type: integer
+          minimum: 0
+        developments:
+          type: array
+          items:
+            $ref: '#/components/schemas/developmentComplete'
+        bonuses:
+          $ref: '#/components/schemas/purse'
+        reserve:
+          type: array
+          items:
+            $ref: '#/components/schemas/developmentComplete'
+    game:
+      description: "Represents a splendor game"
+      allOf:
+        - $ref: '#/components/schemas/gameDescription'
+        - type: object
+          properties:
+            currentPlayer:
+              type: string
+            winner:
+              type: string
+              nullable: true
+              description: | 
+                This property is null when the game is still running, 
+                when the game is in "WinnerIsFound" state, 
+                this property contains the name of the winner.
+            unclaimedNobles:
+              type: array
+              items:
+                $ref: '#/components/schemas/noble'
+            unclaimedTokens:
+              $ref: '#/components/schemas/purse'
+            gameState:
+              type: string
+              description: |
+                Describes the current state of the game for the current player.
+                The first three states are for the player to take actions, they occur also in this order.
+                The last state allows no more actions from players because a winner is found and the game is over.
+              enum:
+                - TurnAction
+                - ReturnGems
+                - ChooseNoble
+                - WinnerIsFound
+            players:
+              type: array
+              items:
+                $ref: '#/components/schemas/player'
+            market:
+              type: array
+              items:
+                type: object
+                properties:
+                  level:
+                    type: integer
+                  cardStackSize:
+                    type: integer
+                  visibleCards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/developmentComplete'
+    gameDescription:
+      type: object
+      properties:
+        gameId:
+          type: integer
+          minimum: 0
+        gameName:
+          type: string
+          minLength: 1
+          nullable: true
+        numberOfPlayers:
+          type: integer
+          minimum: 2
+          maximum: 4
+        returnExcessTokensRequired:
+          type: boolean
+          default: false
+        pickNobleRequired:
+          type: boolean
+          default: false
+      required: [ numberOfPlayers ]
+    gameInListDescription:
+      allOf:
+        - $ref: '#/components/schemas/gameDescription'
+        - type: object
+          properties:
+            players:
+              type: array
+              items:
+                type: string
+            started:
+              type: boolean
+    createGameBody:
+      description: |
+        The body to create a new game.
+        Extends the gameDescription with an extra property playerName. 
+        The player name and number of players is required, the gameId is ignored if entered.
+      allOf:
+        - $ref: '#/components/schemas/gameDescription'
+        - type: object
+          properties:
+            playerName:
+              type: string
+              minLength: 1
+              pattern: "^[a-zA-Z0-9]*$"
+          required: [ playerName ]
+    gameJoinInfo:
+      type: object
+      properties:
+        gameId:
+          type: integer
+        gameName:
+          type: string
+          minLength: 1
+        playerName:
+          type: string
+          minLength: 1
+        playerToken:
+          type: string
+          minLength: 1
+
+tags:
+  - name: Game Actions
+  - name: Game Management
+  - name: General
